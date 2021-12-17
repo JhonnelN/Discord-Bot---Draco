@@ -18,7 +18,7 @@ class Crypto_Price:
         return crypto_price[0:4]
 
 # Get Price
-draco_wemix_price = Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPrice')
+draco_wemix_price = Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDDracoRate')
 "${0:3} USD".format(draco_wemix_price)
 # Discord
 # Bot commands
@@ -32,25 +32,41 @@ async def klay(ctx):
 
 @bot.command()
 async def price(ctx):
-     await ctx.send("${} USD Draco Wemix".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPrice')))
+     await ctx.send("${} USD Draco Wemix".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPriceWemix')))
      await ctx.send("${} USD Draco Oficial Web".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDDracoRate')))
      await ctx.send("${} USD Klay".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDKLAYRate')))
      await ctx.send("${} USD Wemix Credit".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDWemixRate')))
 
 @bot.command()
 async def draco(ctx):
-     await ctx.send("${} USD Draco".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPrice')))
+     await ctx.send("${} USD Draco".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDDracoRate')))
 
 
 # Show price in discord
 @bot.event
 async def on_ready():
     while True:
-        await asyncio.sleep(30)
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name= "${} USD".format(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPrice'))))
-        print("${} USD".format(str(Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPrice'))))
+          try:
+               draco_price = None
+               draco_wemix_price = None
+               klay_price = None
+               await asyncio.sleep(5)
+               draco_price = Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDDracoRate')
+               await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name= "${} USD|Draco".format(draco_price)))
+               await asyncio.sleep(5)
+               draco_wemix_price = Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'DracoPriceWemix')
+               await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name= "${} USD|Wemix Draco".format(draco_wemix_price)))
+               await asyncio.sleep(5)
+               klay_price = Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDKLAYRate')
+               await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name= "${} USD|Klay".format(klay_price)))
+               await asyncio.sleep(5)
+               wemix_price = Crypto_Price.get_price('https://api.mir4global.com/wallet/prices/draco/lastest' , 'USDWemixRate')
+               await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name= "${} USD|Wemix Credit".format(wemix_price)))
+          except:
+               pass
+          
 
-# Security
-bot.run('ODkzMzMyMjAwOTY2MjI1OTMw.YVZ6cg.TxM0TQhBPcraF0KZ1pLtahDbukc')
+          # Security
+bot.run('ODkzMzMyMjAwOTY2MjI1OTMw.YVZ6cg.PhjLGCHYSLj8pLlJqIO2RK63ZDw')
 
 
