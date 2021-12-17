@@ -67,6 +67,6 @@ async def on_ready():
           
 
           # Security
-bot.run('ODkzMzMyMjAwOTY2MjI1OTMw.YVZ6cg.PhjLGCHYSLj8pLlJqIO2RK63ZDw')
+#bot.run('')
 
 
